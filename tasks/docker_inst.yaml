@@ -21,3 +21,8 @@
      yum:
       name: lvm2
       state: latest
+   - name: Create user 'dockeruser'
+     become: true
+     become_user: root
+     user:
+      name: dockeruser
