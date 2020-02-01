@@ -1,6 +1,6 @@
 ---
 - name: Docker Installation Template
-  hosts: jboss
+  hosts: dockerservers
   remote_user: root
   tasks:
    - name: Prerequisites packet=yum-utils
