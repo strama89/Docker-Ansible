@@ -1,0 +1,23 @@
+---
+- name: Docker Installation Template
+  hosts: jboss
+  remote_user: root
+  tasks:
+   - name: Prerequisites packet=yum-utils
+     become: true
+     become_user: root
+     yum: 
+      name: yum-utils 
+      state: latest
+   - name: Prerequisites packet=device-mapper-persistent-data
+     become: true
+     become_user: root
+     yum:
+      name: device-mapper-persistent-data
+      state: latest
+   - name: Prerequisites packet=lvm2
+     become: true
+     become_user: root
+     yum:
+      name: lvm2
+      state: latest
