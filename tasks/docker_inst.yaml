@@ -21,8 +21,32 @@
      yum:
       name: lvm2
       state: latest
+#Create Docker user
    - name: Create user 'dockeruser'
      become: true
      become_user: root
      user:
       name: dockeruser
+#Add docker repository for installation
+   - name: Add Docker repository
+     yum_repository:
+     name: epel
+     description: EPEL YUM repo
+     baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+   - name: Docker-ce installation
+     become: true
+     become_user: root
+     yum:
+      name: docker-ce
+#Add user "dockeruser" to "docker" group
+   - name: Adding user dockeruser
+     user: name=dockeruser
+           group=docker
+           append=yes
+#Start and enalbe docker service
+   - name: Enable and start docker.service
+     systemd:
+       name: docker.service
+       state: started
+       enabled: yes
+      
