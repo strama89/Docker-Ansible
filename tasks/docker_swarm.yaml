@@ -56,13 +56,15 @@
        state: restarted
        name: docker.service
 #Initialized the Docker swarm on your Manager node.
-   - name: Init a new swarm with default parameters
-     docker_swarm:
-       state: present
+#   - name: Init a new swarm with default parameters
+#     docker_swarm:
+#       state: present
+#     register: test
+#   - debug: msg="{{ test.stdout }}"
+   - name: Docker Swarm Initialization
+     command: docker swarm init --advertise-addr 192.168.177.102
      register: test
    - debug: msg="{{ test.stdout }}"
-#   - name: Docker Swarm Initialization
-#     command: docker swarm init --advertise-addr 192.168.177.102
    - name: Docker Info
      command: docker info
      register: dockerinfo
