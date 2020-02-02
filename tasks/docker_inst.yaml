@@ -28,11 +28,11 @@
      user:
       name: dockeruser
 #Add docker repository for installation
-   - name: Add Docker repository
-     yum_repository:
-       name: docker-ce
-       description: Docker repo
-       baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+   - name: Add Docker repo
+     get_url:
+       url: https://download.docker.com/linux/centos/docker-ce.repo
+       dest: /etc/yum.repos.d/docker-ce.repo
+     become: yes
    - name: Install Docker
      package:
        name: docker-ce
