@@ -68,8 +68,8 @@
    - name: Docker Info
      command: docker info
      register: dockerinfo
-   - debug: msg="{{ dockerinfo.stdout }}"
+   - debug: msg="{{ dockerinfo.stdout.split('\n') }}"
    - name: Docker node ls
      command: docker node ls
      register: dockernode
-   - debug: msg="{{ dockernode.stdout }}"
+   - debug: msg="{{ dockernode.stdout.split('\n') }}"

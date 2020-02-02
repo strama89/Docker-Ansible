@@ -1,0 +1,48 @@
+---
+#ansible-playbook docker_swarm_slave.yaml --extra-vars "TOKEN=SWMTKN-1-0jkmyj4mb8u01r9l193cvaqpandzio2wwtq4rue0vel2nsjyhr-439g30mhn6jf2u0i1c3yb8b9n"
+- name: Docker Swarm Installation
+  hosts: dockerswarm
+  remote_user: root
+  tasks:
+   - name: YUM update
+     become: true
+     become_user: root
+     yum: 
+      name: '*'
+      state: latest
+   - name: Opend port using firewalld 2376-2377/tcp
+     firewalld:
+       port: 2376-2377/tcp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 7946/tcp
+     firewalld:
+       port: 7946/tcp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 7946/udp
+     firewalld:
+       port: 7946/udp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 4789/udp
+     firewalld:
+       port: 4789/udp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 80/tcp
+     firewalld:
+       port: 80/tcp
+       permanent: yes
+       state: enabled
+   - name: firewalld reload
+     command: firewall-cmd --reload
+#Docker restart
+   - name: Restart service docker oafter daemon-reload
+     systemd:
+       state: restarted
+       name: docker.service
+   - name: Docker Swarm - Add Node
+     command: docker swarm join --token {{ TOKEN }} 192.168.177.102:2377
+     register: message
+   - debug: msg="{{ message.stdout.split('\n') }}"
