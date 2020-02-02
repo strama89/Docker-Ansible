@@ -15,11 +15,7 @@
      yum: 
       name: docker-engine
       state: latest
-#Docker restart
-   - name: Restart service docker oafter daemon-reload
-     systemd:
-       state: restarted
-       name: docker.service
+#Firewalld rules configuration
    - name: Opend port using firewalld 2376-2377/tcp
      firewalld:
        port: 2376-2377/tcp
@@ -47,3 +43,8 @@
        state: enabled
    - name: firewalld reload
      command: firewall-cmd --reload
+#Docker restart
+   - name: Restart service docker oafter daemon-reload
+     systemd:
+       state: restarted
+       name: docker.service
