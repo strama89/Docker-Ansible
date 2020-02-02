@@ -1,0 +1,49 @@
+---
+- name: Docker Swarm Installation
+  hosts: dockerswarm
+  remote_user: root
+  tasks:
+   - name: YUM update
+     become: true
+     become_user: root
+     yum: 
+      name: '*'
+      state: latest
+   - name: Docker-engine installation
+     become: true
+     become_user: root
+     yum: 
+      name: docker-engine
+      state: latest
+#Docker restart
+   - name: Restart service docker oafter daemon-reload
+     systemd:
+       state: restarted
+       name: docker.service
+   - name: Opend port using firewalld 2376-2377/tcp
+     firewalld:
+       port: 2376-2377/tcp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 7946/tcp
+     firewalld:
+       port: 7946/tcp
+       permanent: yes
+       state: enabled
+   - name: Opend port using firewalld 7946/udp
+     firewalld:
+       port: 7946/udp
+       permanent: yes
+       state: enabled
+    - name: Opend port using firewalld 4789/udp
+      firewalld:
+       port: 4789/udp
+       permanent: yes
+       state: enabled
+    - name: Opend port using firewalld 80/tcp
+      firewalld:
+       port: 80/tcp
+       permanent: yes
+       state: enabled
+    - name: firewalld reload
+      command: firewall-cmd --reload
