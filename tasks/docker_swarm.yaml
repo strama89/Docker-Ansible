@@ -9,6 +9,13 @@
      yum: 
       name: '*'
       state: latest
+#Add docker repository for installation
+   - name: Add Docker-engine repo
+     get_url:
+       url: https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
+       dest: /etc/yum.repos.d/docker.repo
+     become: yes
+#Docker-engine installation
    - name: Docker-engine installation
      become: true
      become_user: root
