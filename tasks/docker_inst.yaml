@@ -30,7 +30,7 @@
 #Add docker repository for installation
    - name: Add Docker repository
      yum_repository:
-       name: epel
+       name: docker-ce
        description: EPEL YUM repo
        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
    - name: Docker-ce installation
