@@ -60,5 +60,9 @@
      command: docker swarm init --advertise-addr 192.168.177.102
    - name: Docker Info
      command: docker info
+     register: dockerinfo
+   - debug: msg="{{ dockerinfo.stdout }}"
    - name: Docker node ls
-     command: docker nodes ls
+     command: docker node ls
+     register: dockernode
+   - debug: msg="{{ dockernode.stdout }}"
