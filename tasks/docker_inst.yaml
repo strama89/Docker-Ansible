@@ -49,4 +49,20 @@
        name: docker.service
        state: started
        enabled: yes
+#Change ExecStart to expose DOCKER REST API
+   - name: Change ExecStart to expose DOCKER REST API
+     become: yes
+     become_user: root
+     lineinfile:
+       path: /etc/systemd/system/multi-user.target.wants/docker.service
+       regexp: "ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock" 
+       line: "ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375"
+       state: present
+       backup: yes
+#Daemon-realod and docker restart
+   - name: Restart service docker oafter daemon-reload
+     systemd:
+       state: restarted
+       daemon_reload: yes
+       name: docker.service
       
