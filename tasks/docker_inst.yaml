@@ -31,13 +31,13 @@
    - name: Add Docker repository
      yum_repository:
        name: docker-ce
-       description: EPEL YUM repo
+       description: Docker repo
        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-   - name: Docker-ce installation
-     become: true
-     become_user: root
-     yum:
-      name: docker-ce
+   - name: Install Docker
+     package:
+       name: docker-ce
+       state: latest
+     become: yes
 #Add user "dockeruser" to "docker" group
    - name: Adding user dockeruser
      user: name=dockeruser
