@@ -35,15 +35,15 @@
        port: 7946/udp
        permanent: yes
        state: enabled
-    - name: Opend port using firewalld 4789/udp
-      firewalld:
+   - name: Opend port using firewalld 4789/udp
+     firewalld:
        port: 4789/udp
        permanent: yes
        state: enabled
-    - name: Opend port using firewalld 80/tcp
-      firewalld:
+   - name: Opend port using firewalld 80/tcp
+     firewalld:
        port: 80/tcp
        permanent: yes
        state: enabled
-    - name: firewalld reload
-      command: firewall-cmd --reload
+   - name: firewalld reload
+     command: firewall-cmd --reload
