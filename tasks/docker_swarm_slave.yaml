@@ -1,7 +1,7 @@
 ---
 #ansible-playbook docker_swarm_slave.yaml --extra-vars "TOKEN=SWMTKN-1-0jkmyj4mb8u01r9l193cvaqpandzio2wwtq4rue0vel2nsjyhr-439g30mhn6jf2u0i1c3yb8b9n"
 - name: Docker Swarm Installation
-  hosts: dockerswarm
+  hosts: dockerservers
   remote_user: root
   tasks:
    - name: YUM update
